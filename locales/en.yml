@@ -1,5 +1,5 @@
 en:
   theme_metadata:
-    description: ''
+    description: "Adds clickable mobile and landline numbers to user profiles using custom fields."
     settings:
       example_setting: A description of a setting.
