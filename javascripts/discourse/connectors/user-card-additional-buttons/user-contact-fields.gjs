@@ -1,8 +1,10 @@
 import Component from "@glimmer/component";
+import { concat } from "@ember/helper";
 import EmberObject, { set } from "@ember/object";
 import { service } from "@ember/service";
 import { dasherize } from "@ember/string";
 import { isEmpty } from "@ember/utils";
+import { eq } from "truth-helpers";
 
 export default class UserContactFields extends Component {
   @service site;
@@ -34,10 +36,22 @@ export default class UserContactFields extends Component {
 
   <template>
     {{#each this.userDetails as |detail|}}
-      <div class="user-fields">
-        <span class="user-field-name">{{detail.field.name}}: </span>
-        <span><a href="tel:{{detail.value}}">{{detail.value}}</a></span>
-      </div>
+      <li class={{concat detail.field.name}}>
+        <a
+          href={{concat "tel:" detail.value}}
+          class="btn btn-primary"
+          style="width:100%;"
+        >
+          <svg class="svg-icon" style="margin-right: 0.5em;"><use
+              xlink:href={{if
+                (eq detail.field.name "Mobilfunknummer")
+                "#mobile-screen"
+                "#phone"
+              }}
+            ></use></svg>
+          {{detail.field.name}}
+        </a>
+      </li>
     {{/each}}
   </template>
 }
